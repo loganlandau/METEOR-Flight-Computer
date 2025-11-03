@@ -1,31 +1,113 @@
-// ========================== METEOR FLIGHT COMPUTER ===========================
-// Purpose: Collects sensor data (GPS, pressure, IMU, magnetometer, temp),
-// logs it to SD, and transmits it over radio (APRS) for tracking and telemetry.
-//
-// Hardware: Arduino M0 (SAMD21) + LightAPRS + Sensors
+/*
+================================================================================
+  WELCOME TO THE METEOR FLIGHT COMPUTER 
+================================================================================
+Hello and welcome! This code runs the METEOR Flight Computer — a self-contained
+high-altitude balloon avionics system. It automatically reads data from all
+onboard sensors, logs that data to an SD card, and sends APRS telemetry packets
+for live tracking during flight.
 
+-------------------------------------------------------------------------------
+ WHAT THIS PROGRAM DOES
+-------------------------------------------------------------------------------
+• Reads GPS location, altitude, and time from the u-blox GPS
+• Measures pressure and internal temperature using the BMP085
+• Records acceleration, rotation, and orientation using the LSM6DS3 IMU
+• Reads magnetic field data from the LIS3MDL magnetometer
+• Monitors battery voltage and ambient temperature (DS18B20)
+• Logs all data to the SD card as a CSV file with timestamps
+• Transmits APRS telemetry packets through the DRA818V radio
+
+-------------------------------------------------------------------------------
+ HOW TO USE IT
+-------------------------------------------------------------------------------
+1. **Power On**
+   - Plug in the battery or USB power to the flight computer.
+   - Wait ~5–10 seconds for sensors and the radio to initialize.
+   - The LED indicators and serial monitor (if connected) will show startup logs.
+
+2. **Set Your Callsign and Frequency**
+   - Open this file in the Arduino IDE.
+   - Scroll down to the section labeled "APRS / RADIO CONFIG".
+   - Change the following lines as needed:
+        char CallSign[7] = "K5FPS";     // Your callsign
+        int8_t CallNumber = 11;         // SSID (-11, -12, etc.)
+        char Frequency[9] = "144.3900"; // APRS frequency in MHz
+   - Optionally edit `StatusMessage` or `comment` for your custom text.
+
+3. **Upload the Code**
+   - Board: Arduino M0 / SAMD21 (as used in LightAPRS)
+   - Connect via USB and click “Upload” in Arduino IDE.
+
+4. **Insert an SD Card**
+   - Use a FAT32-formatted microSD card (8GB or smaller recommended).
+   - The flight computer will automatically create a new CSV log file on startup.
+   - Files are named by date/time (example: FLIGHT_2025-11-03_10-15-00.csv).
+
+5. **Flight Operation**
+   - When powered, the METEOR board continuously:
+       → Reads all sensors
+       → Transmits APRS position & telemetry packets
+       → Saves data locally to SD
+   - The APRS beacon interval and battery sleep settings can be adjusted:
+        BeaconWait = 10;   // Seconds between APRS beacons
+        BattWait = 60;     // Sleep delay when voltage is low
+        BattMin = 2.8;     // Minimum battery voltage before sleep
+
+6. **After Flight**
+   - Power off the computer and remove the SD card.
+   - Open the `.csv` file in Excel, Numbers, or Google Sheets to view data:
+       Timestamp, GPS, altitude, pressure, temperature, etc.
+
+-------------------------------------------------------------------------------
+ TROUBLESHOOTING
+-------------------------------------------------------------------------------
+• **BMP FAIL / GPS not detected** → Power cycle and wait 5 seconds after boot.
+• **No SD log file created** → Ensure SD card is inserted and formatted FAT32.
+• **No APRS packets heard** → Check antenna, frequency, and callsign settings.
+• **Low battery performance** → Ensure >3.3V at VIN or recharge Li-ion pack.
+• **RTC not recording accurate time stamps** → This can occur due to lack of connection to reliable time source, or miscalibration. To fix run the RTC Calibration program below. Input current time and date.
+• **If other problems occur** → Please feel free to contact distributor.
+-------------------------------------------------------------------------------
+  QUICK NOTES
+-------------------------------------------------------------------------------
+• The program automatically adjusts APRS path at high altitudes.
+• The RTC (DS3231) timestamps every log entry.
+• You can monitor output using the Arduino Serial Monitor at 115200 baud.
+• Designed for the LightAPRS or custom SAMD21-based flight computer boards.
+
+-------------------------------------------------------------------------------
+  CUSTOMIZATION SUMMARY
+-------------------------------------------------------------------------------
+🔧 Edit these variables to customize behavior:
+    - `CallSign`, `CallNumber`, `Symbol`, `Frequency`
+    - `BeaconWait` (time between APRS packets)
+    - `BattMin` and `BattWait` (battery thresholds)
+    - `StatusMessage` and `comment` (display text in APRS)
+    - `pathSize`, `Wide1`, `Wide2` (radio path hops)
+
+================================================================================
+
+ ========= RTC Time Calibration Code =========
+ #include <RTClib.h>
+ RTC_DS3231 rtc;
+
+ void setup() {
+   Serial.begin(115200);
+     Serial.println("Couldn't find RTC");
+     while (1);
+   }
+
+   // Replace this with the *exact* current local time when uploading
+   
+   rtc.adjust(DateTime(  , , , , , #00));  // YYYY, MM, DD, HH, MM, SS
+
+   Serial.println("RTC adjusted.");
+}
+
+void loop() {}
 // ============================================================================
-
-// ========= RTC Time Calibration Code =========
-// #include <RTClib.h>
-// RTC_DS3231 rtc;
-
-// void setup() {
-//   Serial.begin(115200);
-//   if (!rtc.begin()) {
-//     Serial.println("Couldn't find RTC");
-//     while (1);
-//   }
-
-//   // Replace this with the *exact* current local time when uploading
-//   rtc.adjust(DateTime(  , , , , , #00));  // YYYY, MM, DD, HH, MM, SS
-
-//   Serial.println("RTC adjusted.");
-// }
-
-// void loop() {}
-// ============================================================================
-
+*/
 // --- LIBRARIES ---
 #include <Arduino.h>
 #include <Wire.h>
