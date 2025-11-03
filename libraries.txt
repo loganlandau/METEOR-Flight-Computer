@@ -1,0 +1,12 @@
+Required Arduino Libraries:
+- ZeroAPRS (https://github.com/hakkican/ZeroAPRS)
+- SparkFun Ublox Arduino Library (https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library)
+- Adafruit BMP085 Library (https://github.com/adafruit/Adafruit-BMP085-Library)
+- Adafruit LSM6DS3 Library (https://github.com/adafruit/Adafruit_LSM6DS)
+- Adafruit LIS3MDL Library (https://github.com/adafruit/Adafruit_LIS3MDL)
+- Adafruit Unified Sensor (https://github.com/adafruit/Adafruit_Sensor)
+- RTClib (https://github.com/adafruit/RTClib)
+- OneWire (https://github.com/PaulStoffregen/OneWire)
+- DallasTemperature (https://github.com/milesburton/Arduino-Temperature-Control-Library)
+- SdFat (https://github.com/greiman/SdFat)
+- MemoryFree (https://github.com/mpflaga/Arduino-MemoryFree)
