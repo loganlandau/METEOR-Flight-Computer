@@ -1,6 +1,6 @@
 METEOR is an APRS-based flight computer that runs off the LightAPRS2.0 from QRP Labs. Since the LightAPRS2.0 is open-source, we’ve added a custom PCB to connect it to a suite of sensors, primarily using I2C connections. The components on this computer are outlined below:
-<img width="708" height="573" alt="Screenshot 2025-11-04 at 8 42 12 AM" src="https://github.com/user-attachments/assets/071fa9a1-c0bf-4582-8c1a-6219028fa128" />
-<img width="534" height="480" alt="Screenshot 2025-11-04 at 8 43 15 AM" src="https://github.com/user-attachments/assets/25dfedbc-22be-4ec9-a0e2-aed7843c7906" />
+
+<img width="708" height="573" alt="Screenshot 2025-11-04 at 8 42 12 AM" src="https://github.com/user-attachments/assets/071fa9a1-c0bf-4582-8c1a-6219028fa128" /> <img width="534" height="480" alt="Screenshot 2025-11-04 at 8 43 15 AM" src="https://github.com/user-attachments/assets/25dfedbc-22be-4ec9-a0e2-aed7843c7906" />
 
 The LightAPRS2.0 already includes the following sensors:
 GPS - The GPS outputs latitude, longitude, and information for altitude and groundspeed calculations. 
